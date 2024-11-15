@@ -87,6 +87,7 @@ def retrieve_products(items, index_name):
 def find_products(context: str) -> Dict[str, any]:
     # Get product queries
     queries = prompty.execute("product.prompty", inputs={"context":context})
+    print(queries)
     qs = json.loads(queries)
     # Generate embeddings
     items = generate_embeddings(qs)

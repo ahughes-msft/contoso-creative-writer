@@ -89,7 +89,7 @@ def execute(instructions: str, feedback: str = "No feedback"):
     fns: List[ToolCall] = prompty.execute(
         "researcher.prompty", inputs={"instructions": instructions, "feedback": feedback}
     )
-
+    assert isinstance(fns, list) and len(fns), "Researcher did not invoke any functions." 
     research = []
     for f in fns:
         fn = functions[f.name]
@@ -98,7 +98,7 @@ def execute(instructions: str, feedback: str = "No feedback"):
         research.append(
             {"id": f.id, "function": f.name, "arguments": args, "result": r}
         )
-
+    
     return research
 
 
@@ -139,6 +139,7 @@ def process(research):
 def research(instructions: str, feedback: str = "No feedback"):
     r = execute(instructions=instructions)
     p = process(r)
+    print(p)
     return p
 
 
