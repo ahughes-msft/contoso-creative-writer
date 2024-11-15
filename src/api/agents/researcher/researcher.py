@@ -41,7 +41,10 @@ def find_information(query, market="en-US"):
         {"url": a["url"], "name": a["name"], "description": a["snippet"]}
         for a in items["webPages"]["value"]
     ]
-
+        # hotfix: sometimes relatedSearches key is not present
+    related = [""] * len(pages) 
+    if "relatedSearches" in items:
+        related = [a["text"] for a in items["relatedSearches"]["value"]]
     return {"pages": pages, "related": related}
 
 
@@ -93,7 +96,7 @@ def execute(instructions: str, feedback: str = "No feedback", num_retries: int =
                 "researcher.prompty", inputs={"instructions": instructions, "feedback": feedback}
             )
         except Exception as e:
-            print(f"find_products() failed due to:\n{e}.\nRetrying {retry_id+1}/{num_retries} times...")
+            print(f"Researcher agent failed due to:\n{e}.\nRetrying {retry_id+1}/{num_retries} times...")
             continue
 
     research = []
