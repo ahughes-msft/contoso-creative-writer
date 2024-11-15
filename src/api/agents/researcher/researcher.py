@@ -78,18 +78,24 @@ def find_news(query, market="en-US"):
 
 
 @trace
-def execute(instructions: str, feedback: str = "No feedback"):
+def execute(instructions: str, feedback: str = "No feedback", num_retries: int = 3):
     """Assign a research task to a researcher"""
     functions = {
         "find_information": find_information,
         "find_entities": find_entities,
         "find_news": find_news,
     }
+    fns = [] 
+    for retry_id in range(num_retries):
+        try: 
+            # best practice to use gpt-4o as in https://openai.com/index/introducing-structured-outputs-in-the-api/
+            fns: List[ToolCall] = prompty.execute(
+                "researcher.prompty", inputs={"instructions": instructions, "feedback": feedback}
+            )
+        except Exception as e:
+            print(f"find_products() failed due to:\n{e}.\nRetrying {retry_id+1}/{num_retries} times...")
+            continue
 
-    fns: List[ToolCall] = prompty.execute(
-        "researcher.prompty", inputs={"instructions": instructions, "feedback": feedback}
-    )
-    assert isinstance(fns, list) and len(fns), "Researcher did not invoke any functions." 
     research = []
     for f in fns:
         fn = functions[f.name]
