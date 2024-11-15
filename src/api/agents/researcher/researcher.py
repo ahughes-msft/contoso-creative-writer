@@ -41,7 +41,7 @@ def find_information(query, market="en-US"):
         {"url": a["url"], "name": a["name"], "description": a["snippet"]}
         for a in items["webPages"]["value"]
     ]
-    related = [a["text"] for a in items["relatedSearches"]["value"]]
+
     return {"pages": pages, "related": related}
 
 
@@ -104,7 +104,7 @@ def execute(instructions: str, feedback: str = "No feedback", num_retries: int =
         research.append(
             {"id": f.id, "function": f.name, "arguments": args, "result": r}
         )
-    
+
     return research
 
 

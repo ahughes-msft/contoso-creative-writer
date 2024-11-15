@@ -4,7 +4,6 @@
     "function": {
       "name": "find_information",
       "description": "Finds information on the web given a query. This function uses the Bing Search API to find information on the web given a query. The response includes the most relevant information from the web and should be used if you're not looking for news or people, places, or things.",
-      "strict": true,
       "parameters": {
         "type": "object",
         "properties": {
@@ -28,9 +27,7 @@
     "function": {
       "name": "find_entities",
       "description": "Finds entities on the web given a query. This function uses the Bing Search API to find entities on the web given a query. This should be used to find people, places, or things but not news or general information.",
-      "strict": true,
       "parameters": {
-        "type": "object",
         "properties": {
           "query": {
             "type": "string",
@@ -52,7 +49,6 @@
     "function": {
       "name": "find_news",
       "description": "Finds news on the web given a query. This function uses the Bing Search API to find news on the web given a query. The response includes the most relevant news articles from the web and should be used if you're looking for news.",
-      "strict": true,
       "parameters": {
         "type": "object",
         "properties": {
