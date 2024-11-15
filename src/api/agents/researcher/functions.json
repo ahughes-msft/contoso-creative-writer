@@ -28,6 +28,7 @@
       "name": "find_entities",
       "description": "Finds entities on the web given a query. This function uses the Bing Search API to find entities on the web given a query. This should be used to find people, places, or things but not news or general information.",
       "parameters": {
+        "type": "object",
         "properties": {
           "query": {
             "type": "string",
